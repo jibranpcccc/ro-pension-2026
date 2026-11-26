@@ -1,0 +1,31 @@
+{
+  "name": "ro-pension-2026",
+  "version": "1.0.0",
+  "description": "MIT reference implementation of 2026 Romanian public and private pension calculations (Law 360/2023, VPR 81 Lei, Law 141/2025 CASS & tax, Law 44/2026 average gross salary).",
+  "type": "module",
+  "main": "./index.mjs",
+  "types": "./index.d.ts",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "romania",
+    "pension-calculator",
+    "legea-360-2023",
+    "vpr-81",
+    "cass",
+    "pilon-2",
+    "pilon-3",
+    "calculatorpensie"
+  ],
+  "homepage": "https://calculatorpensie.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jibranpcccc/ro-pension-2026.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jibranpcccc/ro-pension-2026/issues"
+  },
+  "author": "CalculatorPensie.com <contact@calculatorpensie.com> (https://calculatorpensie.com/)",
+  "license": "MIT"
+}

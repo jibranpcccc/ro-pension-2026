@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RO Pension 2026 Open Formula Demo (Law 360/2023 &amp; VPR 81 Lei)</title>
+  <meta name="description" content="Open-source reference simulator for Romanian 2026 public pension points, Art. 85 stability bonus, and CASS net tax calculation." />
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #0f172a; background: #f8fafc; }
+    .card { background: #fff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; margin: 20px 0; }
+    label { display: block; font-weight: 600; margin-top: 12px; }
+    input { width: 100%; padding: 8px 12px; border: 1px solid #94a3b8; border-radius: 6px; margin-top: 4px; box-sizing: border-box; font-size: 16px; }
+    button { margin-top: 16px; background: #2563eb; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px; }
+    .out { margin-top: 16px; padding: 14px; background: #eff6ff; border-radius: 8px; font-weight: 600; }
+    a { color: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <h1>RO Pension 2026 Formula Playground (VPR = 81 Lei)</h1>
+  <p>Zero-dependency browser verification tool implementing Law 360/2023 &amp; Law 141/2025. Powered by the full Romanian pension suite at <a href="https://calculatorpensie.com/">CalculatorPensie.com</a>.</p>
+
+  <div class="card">
+    <label for="gross">Monthly Gross Salary (RON):</label>
+    <input id="gross" type="number" value="9192" />
+    <label for="years">Total Contributory Years:</label>
+    <input id="years" type="number" value="35" />
+    <button id="calc">Calculate 2026 Estimate</button>
+    <div id="result" class="out">Result: 3.342 RON gross / 3.277 RON net (41,25 points x 81 Lei)</div>
+  </div>
+
+  <div class="card">
+    <h2>Official Suite Links</h2>
+    <ul>
+      <li><a href="https://calculatorpensie.com/">Full Gross &amp; Net Pension Calculator</a></li>
+      <li><a href="https://calculatorpensie.com/calculator-pensie-anticipata/">Early Retirement Penalty Calculator</a></li>
+      <li><a href="https://calculatorpensie.com/program-excel-calcul-pensie/">Excel CSV Calculation Workbook</a></li>
+      <li><a href="https://calculatorpensie.com/metodologie/">Statutory Mathematical Methodology</a></li>
+    </ul>
+  </div>
+
+  <script type="module">
+    import { calculateStandardPension } from "./ro-pension-2026.mjs";
+    const run = () => {
+      const gross = Number(document.getElementById("gross").value);
+      const years = Number(document.getElementById("years").value);
+      try {
+        const res = calculateStandardPension({
+          currentAge: 65,
+          retirementAge: 65,
+          monthlyIncome: gross,
+          incomeType: "gross",
+          contributionYears: years,
+        });
+        document.getElementById("result").textContent =
+          `Result: ${res.monthlyPension} RON gross / ${res.netMonthlyPension} RON net (${res.totalPoints} pts total, +${res.stabilityPoints} stability pts)`;
+      } catch (e) {
+        document.getElementById("result").textContent = e.message;
+      }
+    };
+    document.getElementById("calc").addEventListener("click", run);
+    run();
+  </script>
+</body>
+</html>
